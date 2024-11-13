@@ -1,0 +1,214 @@
+units:
+  $default_width: cx
+  $default_height: cy
+  kx: cx
+  ky: cy
+  px: kx + 4
+  py: ky + 4
+points:
+  key:
+    padding: 1ky
+    spread: 1kx
+  zones.main:
+    anchor:
+      shift: [110, -150]
+    columns:
+      outter:
+        key.column_net: P1
+        key.splay: 8
+      pinkie:
+        key.column_net: P0
+      ring:
+        key.column_net: P2
+        key.spread: cx+.3
+        key.splay: -4
+        key.stagger: 10
+      middle:
+        key.column_net: P7
+        key.spread: cx+.3
+        key.splay: -4
+        key.stagger: 8
+        rows.mod.skip: true
+      index:
+        key.column_net: P8
+        key.stagger: -5
+      inner:
+        key.column_net: P9
+        key.stagger: -3
+    rows: 
+      bottom:
+        row_net: P16
+      home:
+        row_net: P14
+      top:
+        row_net: P15
+      num:
+        row_net: P18
+  zones.thumb:
+    anchor:
+      ref: main_index_bottom
+      shift: [0,-1ky]
+    columns:
+      outter:
+        key.column_net: P2
+        key.shift: [1.4,-1.5]
+        key.rotate: -15
+      mid:
+        key.stagger: -3
+        key.shift: [0.1,-5.6]
+        key.rotate: -15
+        # key.shift: [1.5,-.3ky]
+        # key.rotate: -18
+        key.column_net: P7
+      inner:
+        # key.shift: [1,-10.8]
+        # key.rotate: -18
+        key.shift: [-1,-6.9]
+        key.rotate: -28
+        key.stagger: -6
+        key.column_net: P8
+    rows:
+      mod:
+        row_net: P10
+  zones.palm:
+    columns:
+      palmcol:
+        key.column_net: P0
+    rows:
+      palmrow:
+        row_net: P10
+    anchor:
+      ref: main_pinkie_bottom
+      shift: [-7, -1ky]
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [cx, cy]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: main_outter_num
+          shift: [-.5px,.5py]
+        - ref: main_pinkie_num
+          shift: [ .5px, .5py]
+        - ref: main_ring_num
+          shift: [-.5px, .5py]
+        - ref: main_middle_num
+          shift: [-.5px, .5py]
+        - ref: main_middle_num
+          shift: [.5px, .5py]
+        - ref: main_inner_num
+          shift: [36, .5py]
+        - ref: main_inner_bottom
+          shift: [36, -.5py]
+        - ref: thumb_inner_mod
+          shift: [.5px, 0.5py]
+        - ref: thumb_inner_mod
+          shift: [.5px, -.5py]
+        - ref: thumb_mid_mod
+          shift: [-.5px, -.5py]
+        - ref: main_pinkie_bottom
+          shift: [.5px, -.5py]
+        - ref: palm_palmcol_palmrow
+          shift: [.5px, -.5py]
+        - ref: palm_palmcol_palmrow
+          shift: [-.5px, -.5py]
+        - ref: main_outter_bottom
+          shift: [-.5px, -.5py]
+      fillet: 4
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  minx:
+    template: kicad8
+    outlines:
+      main:
+        outline: board
+    footprints:
+      jerzzilp:
+        what: jerzzilp_mxsocket_simplified
+        where:
+          - /main_outter_.*/
+          - /main_pinkie_.*/
+          - /main_ring_.*/
+          - /main_middle_.*/
+          - /thumb_.*/
+          - /palm.*/
+          - main_index_num
+          - main_inner_num
+          - main_index_home
+          - main_inner_home
+          - main_index_bottom
+          - main_inner_bottom
+        params:
+          P1: "{{column_net}}"
+          P2: "{{colrow}}"
+          traces: true
+      jerzzilpth:
+        what: jerzzilp_mxth
+        where: 
+          - main_index_top
+          - main_inner_top
+        params:
+          P1: "{{column_net}}"
+          P2: "{{colrow}}"
+      diode:
+        what: diode_tht_sod123
+        where: true
+        params:
+          traces: true
+          reversible: true
+          include_tht: true
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [ 0, -0.47ky]
+          rotate: 180
+      promicro:
+        what: mcu_nice_nano
+        params: 
+          reversible: true
+        where: 
+          ref: main_inner_num
+          shift: [1kx+1,-.5ky]
+          rotate: 0
+      powswitch:
+        what: power_switch_smd_side
+        where:
+          ref: main_inner_home
+          shift: [1.5kx, 0.2ky]
+        params:
+          reversible: true
+      battcon:
+        what: battery_connector_jst_ph_2
+        where:
+          ref: main_inner_home
+          shift: [1.5kx, -0.7ky]
+          rotate: 270
+        params:
+          reversible: true
+      ec11:
+        what: rotary_encoder_ec11_ec12
+        where:
+          ref: main_inner_bottom
+          shift: [1.3kx, -0.4ky]
+        params:
+          reversible: true
+          include_plate_hole_marking: true
+      resetswitch:
+        what: reset_switch_smd_side
+        where:
+          ref: main_inner_num
+          shift: [0.27kx, 0.42ky]
+        params:
+          reversible: true
+ 

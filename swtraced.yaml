@@ -1,0 +1,41 @@
+units:
+  $default_width: cx
+  $default_height: cy
+  kx: cx
+  ky: cy
+  px: kx + 4
+  py: ky + 4
+points:
+  key:
+    padding: 1ky
+    spread: 1kx
+  zones.main:
+    anchor:
+      shift: [110, -150]
+    columns:
+      col:
+    rows: 
+      row:
+pcbs:
+  swtraced:
+    template: kicad8
+    footprints:
+      switch:
+        what: jerzzilp_mxsocket
+        where: true
+        params:
+          P1: "{{column_net}}"
+          P2: "{{colrow}}"
+      diode:
+        what: diode_tht_sod123
+        where: true
+        params:
+          traces: true
+          reversible: true
+          include_tht: true
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [ 0, -0.47ky]
+          rotate: 180
+ 
