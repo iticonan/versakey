@@ -24,7 +24,7 @@ points:
         key.splay: -4
         key.stagger: 10
       middle:
-        key.column_net: P7
+        key.column_net: P3
         key.spread: cx+.3
         key.splay: -4
         key.stagger: 8
@@ -34,7 +34,7 @@ points:
         key.stagger: -5
       inner:
         key.column_net: P9
-        key.stagger: -3
+        key.stagger: -2.4
     rows: 
       bottom:
         row_net: P16
@@ -55,16 +55,14 @@ points:
         key.rotate: -15
       mid:
         key.stagger: -3
-        key.shift: [0.1,-5.6]
+        key.shift: [0.1,-5.7]
         key.rotate: -15
         # key.shift: [1.5,-.3ky]
         # key.rotate: -18
-        key.column_net: P7
+        key.column_net: P3
       inner:
-        # key.shift: [1,-10.8]
-        # key.rotate: -18
-        key.shift: [-1,-6.9]
-        key.rotate: -28
+        key.shift: [-0.8,-7.1]
+        key.rotate: -31
         key.stagger: -6
         key.column_net: P8
     rows:
@@ -95,19 +93,29 @@ outlines:
       operation: stack
       points:
         - ref: main_outter_num
-          shift: [-.5px,.5py]
+          shift: [-.43px,.43py]
         - ref: main_pinkie_num
-          shift: [ .5px, .5py]
+          shift: [ .43px, .43py]
         - ref: main_ring_num
-          shift: [-.5px, .5py]
+          shift: [-.43px, .43py]
+        - ref: main_ring_num
+          shift: [.43px, .43py]
         - ref: main_middle_num
-          shift: [-.5px, .5py]
+          shift: [-.45px, .45py]
         - ref: main_middle_num
-          shift: [.5px, .5py]
+          shift: [.45px, .45py]
+        - ref: main_index_num
+          shift: [ -.3px, .5py]
+        - ref: main_index_num
+          shift: [ .25px, .5py]
         - ref: main_inner_num
-          shift: [36, .5py]
+          shift: [1.15px, 1.25ky]
+        - ref: main_inner_top
+          shift: [1.5px, 0ky]
+        - ref: main_inner_home
+          shift: [1.2px, .3ky]
         - ref: main_inner_bottom
-          shift: [36, -.5py]
+          shift: [1.2px,  0py]
         - ref: thumb_inner_mod
           shift: [.5px, 0.5py]
         - ref: thumb_inner_mod
@@ -122,7 +130,7 @@ outlines:
           shift: [-.5px, -.5py]
         - ref: main_outter_bottom
           shift: [-.5px, -.5py]
-      fillet: 4
+      fillet: 2
   combo:
     - name: board
     - operation: subtract
@@ -179,36 +187,41 @@ pcbs:
           reversible: true
         where: 
           ref: main_inner_num
-          shift: [1kx+1,-.5ky]
-          rotate: 0
+          shift: [1kx+1, 3]
+          rotate: 12
       powswitch:
         what: power_switch_smd_side
         where:
           ref: main_inner_home
-          shift: [1.5kx, 0.2ky]
+          shift: [1.48kx, 0.5]
         params:
           reversible: true
       battcon:
         what: battery_connector_jst_ph_2
         where:
           ref: main_inner_home
-          shift: [1.5kx, -0.7ky]
+          shift: [1.4kx, -0.5ky]
           rotate: 270
         params:
           reversible: true
-      ec11:
-        what: rotary_encoder_ec11_ec12
+      dial:
+        what: versamov
+        where:
+          ref: main_inner_home
+          shift: [1kx-5, 0.5ky+0.6]
+          rotate: 90
+        params:
+      joycon:
+        what: joycon_tm023
         where:
           ref: main_inner_bottom
-          shift: [1.3kx, -0.4ky]
-        params:
-          reversible: true
-          include_plate_hole_marking: true
+          shift: [0.9kx, -0.55ky] 
+          rotate: 45
       resetswitch:
         what: reset_switch_smd_side
         where:
           ref: main_inner_num
-          shift: [0.27kx, 0.42ky]
+          shift: [-0.42kx, 0.52ky]
         params:
           reversible: true
  
