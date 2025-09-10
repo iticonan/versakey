@@ -15,14 +15,14 @@ points:
     columns:
       outter:
         key.column_net: P1
-        key.splay: 8
+        key.splay: 12
       pinkie:
         key.column_net: P0
       ring:
         key.column_net: P2
         key.spread: cx+.3
         key.splay: -4
-        key.stagger: 10
+        key.stagger: 12
       middle:
         key.column_net: P3
         key.spread: cx+.3
@@ -31,6 +31,7 @@ points:
         rows.mod.skip: true
       index:
         key.column_net: P8
+        key.splay: -4
         key.stagger: -5
       inner:
         key.column_net: P9
@@ -46,28 +47,32 @@ points:
         row_net: P18
   zones.thumb:
     anchor:
-      ref: main_index_bottom
-      shift: [0,-1ky]
+      ref: main_inner_bottom
+      rotate: -90
+      shift: [0, -ky]
     columns:
-      outter:
-        key.column_net: P2
-        key.shift: [1.4,-1.5]
-        key.rotate: -15
-      mid:
-        key.stagger: -3
-        key.shift: [0.1,-5.7]
-        key.rotate: -15
-        # key.shift: [1.5,-.3ky]
-        # key.rotate: -18
-        key.column_net: P3
-      inner:
-        key.shift: [-0.8,-7.1]
-        key.rotate: -31
-        key.stagger: -6
-        key.column_net: P8
+      ctop:
+        # key.column_net: P2
+        # key.shift: [1.4,-1.5]
+      # mid:
+      #   key.stagger: -3
+      #   key.shift: [0.1,-5.7]
+      #   key.rotate: -15
+      #   # key.shift: [1.5,-.3ky]
+      #   # key.rotate: -18
+      #   key.column_net: P3
+      cbottom:
+        key.stagger: 0.5u
+        # key.shift: [-0.8,-7.1]
+        # key.rotate: -31
+        # key.stagger: -6
+        # key.column_net: P8
     rows:
-      mod:
-        row_net: P10
+      cinner:
+        adjust.rotate: 90
+      coutter:
+        adjust.rotate: 90
+        # row_net: P10
   zones.palm:
     columns:
       palmcol:
@@ -116,11 +121,15 @@ outlines:
           shift: [1.2px, .3ky]
         - ref: main_inner_bottom
           shift: [1.2px,  0py]
-        - ref: thumb_inner_mod
+        - ref: thumb_ctop_coutter
           shift: [.5px, 0.5py]
-        - ref: thumb_inner_mod
+        - ref: thumb_cbottom_coutter
+          shift: [.5px, .5py]
+        - ref: thumb_cbottom_coutter
           shift: [.5px, -.5py]
-        - ref: thumb_mid_mod
+        - ref: thumb_cbottom_cinner
+          shift: [-.5px, -.5py]
+        - ref: thumb_ctop_cinner
           shift: [-.5px, -.5py]
         - ref: main_pinkie_bottom
           shift: [.5px, -.5py]
@@ -187,8 +196,7 @@ pcbs:
           reversible: true
         where: 
           ref: main_inner_num
-          shift: [1kx+1, 3]
-          rotate: 12
+          shift: [1kx+1, -0.5ky]
       powswitch:
         what: power_switch_smd_side
         where:
@@ -207,16 +215,16 @@ pcbs:
       dial:
         what: versamov
         where:
-          ref: main_inner_home
-          shift: [1kx-5, 0.5ky+0.6]
-          rotate: 90
+          ref: main_inner_bottom
+          shift: [1kx, 0.15ky]
+          rotate: 0
         params:
       joycon:
         what: joycon_tm023
         where:
-          ref: main_inner_bottom
-          shift: [0.9kx, -0.55ky] 
-          rotate: 45
+          ref: main_index_bottom
+          shift: [-0.3kx, -1.2ky] 
+          rotate: 0
       resetswitch:
         what: reset_switch_smd_side
         where:
